@@ -1,29 +1,32 @@
 package forum;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Sorts {
 
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        int m = 1000;
-        int n = 1000;
-        int[][] arrayRandom = new int[m][n];
+    public static void main(String[] args) {
+        Scanner userInput = new Scanner(System.in);
+        System.out.print("Input array length: ");
+        int len = userInput.nextInt();
+        System.out.print("Input iteration time: ");
+        int itr = userInput.nextInt();
+
+        int[][] arrayRandom = new int[itr][len];
         Random rand = new Random();
-        for (int i=0; i<m; i++) {
-            for (int j=0; j<n; j++) {
+        for (int i=0; i<itr; i++) {
+            for (int j=0; j<len; j++) {
                 int r = rand.nextInt(0, 1000);
                 arrayRandom[i][j] = r;
             }
         }
 
-        System.out.printf("ARRAY LENGTH %d, WITH %d ITERATIONS%n", n, m);
+        System.out.printf("ARRAY LENGTH %d, WITH %d ITERATIONS%n", len, itr);
 
         /* Insertion Sort */
-        long[] durations1 = new long[m];
-        for (int i = 0; i < m; i++) {
+        long[] durations1 = new long[itr];
+        for (int i = 0; i < itr; i++) {
             long startTime = System.nanoTime();
             insertionSort(arrayRandom[i].clone());
             long endTime = System.nanoTime();
@@ -37,8 +40,8 @@ public class Sorts {
         System.out.printf("Avg time: %s ns%n", Arrays.stream(durations1).average().getAsDouble());
 
         /* Bubble Sort */
-        long[] durations2 = new long[m];
-        for (int i = 0; i < m; i++) {
+        long[] durations2 = new long[itr];
+        for (int i = 0; i < itr; i++) {
             long startTime = System.nanoTime();
             bubbleSort(arrayRandom[i].clone());
             long endTime = System.nanoTime();
@@ -52,8 +55,8 @@ public class Sorts {
         System.out.printf("Avg time: %s ns%n", Arrays.stream(durations2).average().getAsDouble());
 
         /* Merge Sort */
-        long[] durations3 = new long[m];
-        for (int i = 0; i < m; i++) {
+        long[] durations3 = new long[itr];
+        for (int i = 0; i < itr; i++) {
             long startTime = System.nanoTime();
             mergeSort(arrayRandom[i].clone(), 0, arrayRandom[i].length-1);
             long endTime = System.nanoTime();
@@ -67,8 +70,8 @@ public class Sorts {
         System.out.printf("Avg time: %s ns%n", Arrays.stream(durations3).average().getAsDouble());
 
         /* Quick Sort */
-        long[] durations4 = new long[m];
-        for (int i = 0; i < m; i++) {
+        long[] durations4 = new long[itr];
+        for (int i = 0; i < itr; i++) {
             long startTime = System.nanoTime();
             quickSort(arrayRandom[i].clone(), 0, arrayRandom[i].length-1);
             long endTime = System.nanoTime();
